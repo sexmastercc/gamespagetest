@@ -5,8 +5,13 @@ const url = require('url'); // Import the url module
 const app = express();
 
 const getCurrentDomain = (req) => {
+  // Safely access req.headers.host and provide a default value if undefined
+  const host = req.headers && req.headers.host? req.headers.host : 'localhost';
+  const protocol = req.protocol || 'http'; // Default to http if not defined
+  
   // Correctly construct the base URL
-  const baseUrl = `${req.protocol}://${req.headers.host}`;
+  const baseUrl = `${protocol}://${host}`;
+  
   // Parse the base URL to get the hostname
   const parsedUrl = new url.URL(baseUrl);
   return `${parsedUrl.hostname}/ngg`;
@@ -20,7 +25,7 @@ const proxy = createProxyMiddleware({
   secure: true,
   logLevel: 'debug',
   router: function(req) {
-    if (req.headers.host === 'mathsspot.com') {
+    if (req.headers && req.headers.host === 'mathsspot.com') {
       req.headers['x-forwarded-for'] = ''; 
       req.headers['x-real-ip'] = '';
       req.headers['via'] = '';
