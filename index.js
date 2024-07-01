@@ -4,9 +4,9 @@ const url = require('url'); // Import the url module
 
 const app = express();
 
-// Dynamically set the nggUrl based on the current domain
 const getCurrentDomain = (req) => {
-  const parsedUrl = new url.URL(req.url, req.protocol + '://' + req.get('host'));
+  const baseUrl = `${req.protocol}://${req.headers.host}`;
+  const parsedUrl = new url.URL(baseUrl, req.url);
   return `${parsedUrl.hostname}/ngg`;
 };
 
