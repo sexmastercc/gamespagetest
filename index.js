@@ -16,6 +16,7 @@ const proxy = createProxyMiddleware({
 });
 
 app.use('/github', proxy);
+app.use('/electrical-development', proxy);
 
 const port = process.env.PORT || 443;
 app.listen(port, () => {
