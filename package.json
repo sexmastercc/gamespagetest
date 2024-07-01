@@ -1,8 +1,9 @@
 {
   "dependencies": {
     "express": "^4.18.2",
+    "http-proxy": "^1.18.1",
     "http-proxy-middleware": "^2.0.6",
-    "http-proxy": "^1.18.1"
+    "url": "^0.11.3"
   },
   "name": "cybriagg",
   "description": "CybriaGG is an unblocked site for users to access & play Roblox freely on Now.GG",
@@ -10,7 +11,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
-    
   },
   "keywords": [
     "roblox",
