@@ -5,8 +5,10 @@ const url = require('url'); // Import the url module
 const app = express();
 
 const getCurrentDomain = (req) => {
+  // Correctly construct the base URL
   const baseUrl = `${req.protocol}://${req.headers.host}`;
-  const parsedUrl = new url.URL(baseUrl, req.url);
+  // Parse the base URL to get the hostname
+  const parsedUrl = new url.URL(baseUrl);
   return `${parsedUrl.hostname}/ngg`;
 };
 
@@ -19,9 +21,9 @@ const proxy = createProxyMiddleware({
   logLevel: 'debug',
   router: function(req) {
     if (req.headers.host === 'mathsspot.com') {
-      req.headers['X-Forwarded-For'] = ''; 
-      req.headers['X-Real-IP'] = '';
-      req.headers['Via'] = '';
+      req.headers['x-forwarded-for'] = ''; 
+      req.headers['x-real-ip'] = '';
+      req.headers['via'] = '';
     }
     // Update the nggUrl dynamically based on the current request
     nggUrl = getCurrentDomain(req);
